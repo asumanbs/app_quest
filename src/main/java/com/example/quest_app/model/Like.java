@@ -11,7 +11,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "p_like")
 public class Like {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postId", nullable = false)

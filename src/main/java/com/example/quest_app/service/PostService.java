@@ -1,5 +1,6 @@
 package com.example.quest_app.service;
 
+import com.example.quest_app.dto.LikeResponseDto;
 import com.example.quest_app.dto.PostCreateDto;
 import com.example.quest_app.dto.PostResponseDto;
 import com.example.quest_app.model.Post;
@@ -15,9 +16,13 @@ import java.util.stream.Collectors;
 public class PostService {
     private PostRepository postRepository;
     private UserService userService;
-    public PostService(PostRepository postRepository, UserService userService){
+    private LikeService likeService;
+    public PostService(PostRepository postRepository,
+                       UserService userService,
+                       LikeService likeService){
         this.postRepository = postRepository ;
         this.userService = userService;
+        this.likeService = likeService;
     }
     public List<PostResponseDto> getAllPost(Optional<Long> userId) {
         List<Post> list;
@@ -26,7 +31,7 @@ public class PostService {
         }else
             list = postRepository.findAll();
         return list.stream().map(p -> {
-           // List<LikeResponse> likes = likeService.getAllLikesWithParam(Optional.ofNullable(null), Optional.of(p.getId()));
+            List<LikeResponseDto> likes = likeService.getAllLikesWithParam(Optional.ofNullable(null), Optional.of(p.getId()));
             return new PostResponseDto(p);}).collect(Collectors.toList());
     }
     public Post getPostById(Long postId) {
