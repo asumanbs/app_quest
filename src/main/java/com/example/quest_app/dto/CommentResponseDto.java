@@ -1,25 +1,19 @@
 package com.example.quest_app.dto;
 
-import com.example.quest_app.model.Post;
+import com.example.quest_app.model.Comment;
+import lombok.Data;
 
-import java.util.List;
-
-public class PostResponseDto {
+@Data
+public class CommentResponseDto {
     Long id;
     Long userId;
     String userName;
-    String title;
     String text;
-    List<LikeResponseDto> postLikes;
 
-
-    public PostResponseDto(Post entity) {
+    public CommentResponseDto(Comment entity) {
         this.id = entity.getId();
         this.userId = entity.getUser().getId();
         this.userName = entity.getUser().getUserName();
-        this.title = entity.getTitle();
         this.text = entity.getText();
-
-
     }
 }
