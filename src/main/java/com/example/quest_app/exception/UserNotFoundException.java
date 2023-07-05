@@ -1,4 +1,4 @@
-package exception;
+package com.example.quest_app.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException() {

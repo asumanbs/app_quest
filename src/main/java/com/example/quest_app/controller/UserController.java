@@ -3,7 +3,7 @@ package com.example.quest_app.controller;
 import com.example.quest_app.dto.UserDto;
 import com.example.quest_app.model.User;
 import com.example.quest_app.service.UserService;
-import exception.UserNotFoundException;
+import com.example.quest_app.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,6 @@ public class UserController {
         if(user != null)
             return new ResponseEntity<>(HttpStatus.CREATED);
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
     }
     @GetMapping("/{userId}")
     public UserDto getOneUser(@PathVariable Long userId) {
@@ -49,8 +48,5 @@ public class UserController {
     public void deleteOneUser(@PathVariable Long userId) {
         userService.deleteById(userId);
     }
-
-
-
 
 }
