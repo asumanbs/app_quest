@@ -1,16 +1,17 @@
 package com.example.quest_app.dto;
 
 import com.example.quest_app.model.Post;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
 public class PostResponseDto {
     Long id;
     Long userId;
     String userName;
     String title;
     String text;
-    List<LikeResponseDto> postLikes;
+
 
 
     public PostResponseDto(Post entity) {

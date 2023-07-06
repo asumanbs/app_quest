@@ -3,7 +3,12 @@ package com.example.quest_app.service;
 import com.example.quest_app.dto.UserDto;
 import com.example.quest_app.model.User;
 import com.example.quest_app.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,9 +23,11 @@ public class UserService {
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
+
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
+
 
     public User createUser(User user) {
         return userRepository.save(user);
@@ -41,6 +48,7 @@ public class UserService {
         }else
             return null;
     }
+
     public void deleteById(Long userId) {
         try {
             userRepository.deleteById(userId);
