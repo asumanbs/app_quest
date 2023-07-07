@@ -6,12 +6,6 @@ import com.example.quest_app.model.Like;
 import com.example.quest_app.model.Post;
 import com.example.quest_app.model.User;
 import com.example.quest_app.repository.LikeRepository;
-import jakarta.annotation.PostConstruct;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +13,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-//@CacheConfig(cacheNames = {"quest"})
 public class LikeService {
     private LikeRepository likeRepository;
     private UserService userService;
@@ -43,7 +36,6 @@ public class LikeService {
             list = likeRepository.findAll();
         return list.stream().map(like -> new LikeResponseDto(like)).collect(Collectors.toList());
     }
-    //@Cacheable(key = "#LikeId")
     public Like getOneLikeById(Long LikeId) {
         return likeRepository.findById(LikeId).orElse(null);
     }

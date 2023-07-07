@@ -1,20 +1,15 @@
 package com.example.quest_app.service;
 
-import com.example.quest_app.dto.UserDto;
+
 import com.example.quest_app.model.User;
 import com.example.quest_app.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
@@ -52,8 +47,18 @@ public class UserService {
     public void deleteById(Long userId) {
         try {
             userRepository.deleteById(userId);
-        }catch(EmptyResultDataAccessException e) { //user zaten yok, db'den empty result gelmiş
-            System.out.println("User "+userId+" doesn't exist"); //istersek loglayabiliriz
+        }catch(EmptyResultDataAccessException e) {
+            System.out.println("User "+userId+" doesn't exist");
         }
     }
+
+    public User getOneUserByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    public User saveOneUser(User newUser) {
+        return userRepository.save(newUser);
+    }
 }
+
+
