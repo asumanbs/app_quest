@@ -1,9 +1,11 @@
 package com.example.quest_app.service;
 
 
+import com.example.quest_app.dto.UserDto;
 import com.example.quest_app.model.User;
 import com.example.quest_app.repository.UserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -14,9 +16,11 @@ import java.util.Optional;
 @Service
 public class UserService {
     private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getAllUser() {
@@ -25,7 +29,17 @@ public class UserService {
 
 
     public User createUser(User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+    public UserDto getUser(String userName) {
+        var savedUser  = getOneUserByUserName(userName);
+        return UserDto.builder()
+                .userName(savedUser.getUserName())
+                .role(savedUser.getRole())
+                .build();
+
     }
 
     public User getUserById(Long userId) {
