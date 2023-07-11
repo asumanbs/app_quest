@@ -1,4 +1,4 @@
-package security;
+package com.example.quest_app.security;
 
 import com.example.quest_app.service.UserDetailsServiceImpl;
 import com.example.quest_app.utils.TokenGenerator;
